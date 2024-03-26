@@ -22,17 +22,27 @@ WS : [ \n\t\r] -> skip;
 
 ID : (LETRA | '_')(LETRA | DIGITO | '_')* ;
 
-PA: '(';
-PC: ')';
+PA : '(';
+PC : ')';
+LA : '{';
+LC : '}';
+CA : '[';
+CC : ']';
 
-si : s EOF;
+// si : s EOF;
 
-s : PA s PC s
-  |
-  ;
+// s : PA s PC s
+//   |
+//   ;
 
 // s : ID     { System.out.println("ID ->" + $ID.getText() + "<--"); }         s
 //   | NUMERO { System.out.println("NUMERO ->" + $NUMERO.getText() + "<--"); } s
 //   | OTRO   { System.out.println("Otro ->" + $OTRO.getText() + "<--"); }     s
 //   | EOF
 //   ;
+
+s : PA s PC
+  | CA s CC
+  | LA s LC
+  |
+  ;

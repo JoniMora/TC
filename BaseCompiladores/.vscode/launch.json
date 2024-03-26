@@ -12,10 +12,11 @@
             "grammar": "${file}", //Que G4 leer
             // Archivo a parsear
             //"input": "input/entrada.txt",
-            "input": "input/parentesis.txt", //DEPURAR ANTLR
+            // "input": "input/parentesis.txt", //DEPURAR ANTLR
+            "input": "input/balanceLlaves.txt",
             // Simbolo inicial
             //"startRule": "s",
-            "startRule": "si",
+            "startRule": "s",
             // Muestra Arbol Sintactico
             "printParseTree": true,
             "visualParseTree": true
