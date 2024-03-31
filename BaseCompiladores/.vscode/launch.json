@@ -11,23 +11,25 @@
             // Archivo con la gramatica
             "grammar": "${file}", //Que G4 leer
             // Archivo a parsear
-            //"input": "input/entrada.txt",
+            // "input": "input/entrada.txt",
             // "input": "input/parentesis.txt", //DEPURAR ANTLR
-            "input": "input/balanceLlaves.txt",
+            // "input": "input/balanceLlaves.txt", //BALANCE LLAVES
+            // "input": "input/fecha.txt",  //EXPRESION SIMPLE
+            "input": "input/hora.txt",  //EXPRESION SIMPLE
             // Simbolo inicial
-            //"startRule": "s",
+            //"startRule": "si",
             "startRule": "s",
             // Muestra Arbol Sintactico
             "printParseTree": true,
             "visualParseTree": true
         },
-        {
-            "name": "Python: Current File",
-            "type": "python",
-            "request": "launch",
-            "program": "${file}",
-            "console": "integratedTerminal"
-        },
+        // {
+        //     "name": "Python: Current File",
+        //     "type": "python",
+        //     "request": "launch",
+        //     "program": "${file}",
+        //     "console": "integratedTerminal"
+        // },
         {
             "type": "java",
             "name": "Launch Current File",
