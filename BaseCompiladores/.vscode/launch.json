@@ -14,11 +14,11 @@
             // "input": "input/entrada.txt",
             // "input": "input/parentesis.txt", //DEPURAR ANTLR
             // "input": "input/balanceLlaves.txt", //BALANCE LLAVES
-            // "input": "input/fecha.txt",  //EXPRESION SIMPLE
-            "input": "input/hora.txt",  //EXPRESION SIMPLE
+            "input": "input/fechas-hora.txt",  //EXPRESION SIMPLE
             // Simbolo inicial
             //"startRule": "si",
-            "startRule": "s",
+            // "startRule": "s",
+            "startRule": "start", //EXPRESION SIMPLE
             // Muestra Arbol Sintactico
             "printParseTree": true,
             "visualParseTree": true
