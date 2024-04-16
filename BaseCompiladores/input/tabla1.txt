@@ -1,0 +1,88 @@
+Análisis Sintáctico - Tablas 1
+
+term : term exp
+     | NUMERO
+     ;
+
+exp : '+' term
+    | '-' term
+    |
+    ;
+
+Realizar la tabla de Análisis Sintáctico Descendente para la entrada
+7 - 2 + 9
+
+$ term			    7 - 2 + 9 $ Derivar
+$ exp term		    7 - 2 + 9 $ Match
+$ exp			      - 2 + 9 $ Derivar
+$ term -		      - 2 + 9 $ Match
+$ term			        2 + 9 $ Derivar
+$ exp term	            	2 + 9 $ Match
+$ exp   			  + 9 $ Derivar
+$ term +    		          + 9 $ Match
+$ term  			    9 $ Derivar
+$ NUMERO   	                    9 $ Match
+$   			              $ OK
+
+
+////////////////////////////////////
+5 + 3 6 - 4
+
+$ term			     5 + 3 6 - 4 $ Derivar
+$ exp term		     5 + 3 6 - 4 $ Match
+$ exp			       + 3 6 - 4 $ Derivar
+$ term +			   + 3 6 - 4 $ Match
+$ term 			    	 3 6 - 4 $ Derivar
+$ NUMERO 			     3 6 - 4 $ Match
+$    			     	   6 - 4 $ ERROR
+
+
+////////////////////////////////////
+5 + - 3 + 4
+
+$ term			    5 + - 3 + 4 $ Derivar
+$ exp term		    5 + - 3 + 4 $ Match
+$ exp			      + - 3 + 4 $ Derivar
+$ term +			  + - 3 + 4 $ Match
+$ term			        - 3 + 4 $ ERROR  
+
+
+//---------------------------------------------------------------------
+
+Realizar la tabla de Análisis Sintáctico Ascendente para la entrada
+7 - 2 + 9
+
+$			    7 - 2 + 9 $ Desplazar
+$ 7 		              - 2 + 9 $ Reducir
+$ 7 term		      - 2 + 9 $ Desplazar
+$ 7 term - 		  	2 + 9 $ Desplazar
+$ 7 term - term	            	  + 9 $ Reducir
+$ 7 exp		            	  + 9 $ Desplazar
+$ 7 exp +		            9 $ Desplazar
+$ 7 exp + term		 	      $ Reducir
+$ 7 exp			      	      $ Reducir
+$ NUMERO  	                      $ OK
+
+
+////////////////////////////////////
+5 + 3 6 - 4
+
+$			     5 + 3 6 - 4 $ Desplazar
+$ 5		      	       + 3 6 - 4 $ Desplazar
+$ 5 term			 3 6 - 4 $ Desplazar
+$ 5 term term exp  		   6 - 4 $ Reducir
+$ 5 term 		     	   6 - 4 $ Desplazar
+$ 5 term term  	  	             - 4 $ Reducir
+$ 5 term 	  	             - 4 $ Desplazar
+$ 5 term -  	  	               4 $ ERROR
+
+
+////////////////////////////////////
+5 + - 3 + 4
+
+$			    5 + - 3 + 4 $ Desplazar
+$ 5			      + - 3 + 4 $ Desplazar
+$ 5 term 			- 3 + 4 $ Reducir
+$ 5 exp				- 3 + 4 $ Desplazar
+$ 5 exp term			  3 + 4 $ Reducir
+$ 3 exp				  3 + 4 $ ERROR
