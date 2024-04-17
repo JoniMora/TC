@@ -1,0 +1,62 @@
+Análisis Sintáctico - Tablas 2
+
+operacion : term ;
+
+term : term exp
+     | NUMERO
+     | '(' term ')'
+     ;
+
+exp : '+' term
+    | '-' term
+    |
+    ;
+
+
+Realizar la tabla de Análisis Sintáctico Descendente para la entrada
+7 - ( 2 + 9 )
+
+$ term			    7 - ( 2 + 9 ) $ Derivar
+$ exp term		    7 - ( 2 + 9 ) $ Match
+$ exp			      - ( 2 + 9 ) $ Derivar
+$ term -		      - ( 2 + 9 ) $ Match
+$ term			        ( 2 + 9 ) $ Derivar
+$ ) term (	            ( 2 + 9 ) $ Match
+$ ) term    			  2 + 9 ) $ Derivar
+$ ) exp term     		  2 + 9 ) $ Match
+$ ) exp  			        + 9 ) $ Derivar
+$ ) term +   	            + 9 ) $ Match
+$ term   			          9 ) $ Derivar
+$ ) NUMERO                    9 ) $ Match
+$ )                             ) $ Match
+$                                 $ OK
+
+
+////////////////////////////////////
+5 + ( 6 - 4
+
+$ term			     5 + ( 6 - 4 $ Derivar
+$ exp term		     5 + ( 6 - 4 $ Match
+$ exp			       + ( 6 - 4 $ Derivar
+$ term +		       + ( 6 - 4 $ Match
+$ term			         ( 6 - 4 $ Derivar
+$ ) term (	             ( 6 - 4 $ Match
+$ ) term    			   6 - 4 $ Derivar
+$ ) exp term     		   6 - 4 $ Match
+$ ) exp  			         - 4 $ Derivar
+$ ) term -   	             - 4 $ Match
+$ ) term   			           4 $ Derivar
+$ ) NUMERO                     4 $ Match
+$ )                              $ ERROR
+
+
+////////////////////////////////////
+5 + 6 ) - 4
+
+$ term			     5 + 6 ) - 4 $ Derivar
+$ exp term		     5 + 6 ) - 4 $ Match
+$ exp			       + 6 ) - 4 $ Derivar
+$ term +		       + 6 ) - 4 $ Match
+$ term 	                 6 ) - 4 $ Derivar
+$ exp term     		     6 ) - 4 $ Match
+$ exp                      ) - 4 $ ERROR
