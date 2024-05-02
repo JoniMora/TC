@@ -1,6 +1,8 @@
 grammar compiladores; ///-> Analizador lexico y gramatical
 //lexer -> Analisis lexico
 
+// lexico recursivo
+
 //-> Directiva para hacer algo en la cabezera de los archivos generados - Comentar para depurar y descomentar para correr el codigo
 @header { 
 package compiladores;
@@ -19,17 +21,17 @@ fragment DIGITO : [0-9];
 //Regla para los espacios en blanco
 WS : [ \n\t\r] -> skip;
 
-PA : '(';
-PC : ')';
-LA : '{';
-LC : '}';
-PYC : ';';
-IGUAL : '=';
+// PA : '(';
+// PC : ')';
+// LA : '{';
+// LC : '}';
+// PYC : ';';
+// IGUAL : '=';
 
-INT : 'int';
+// INT : 'int';
 
-NUMERO : DIGITO+ ;
-ID : (LETRA | '_')(LETRA | DIGITO | '_')* ;
+// NUMERO : DIGITO+ ;
+// ID : (LETRA | '_')(LETRA | DIGITO | '_')* ;
 
 // si : s EOF;
 
@@ -82,16 +84,77 @@ ID : (LETRA | '_')(LETRA | DIGITO | '_')* ;
 // pm : PM_TIME;
 // otro : OTRO;
 
+// programa : instrucciones EOF;
+
+// instrucciones : instruccion instrucciones
+//                |
+//                ;
+
+// instruccion : LA instrucciones LC
+//             | declaracion
+//             | assignacion
+//             ;
+
+// declaracion : INT ID PYC;
+// assignacion : ID IGUAL NUMERO PYC;
+
+
+//------------- Analisis Sintactico - Reglas simples ------------------//
+// Realizar el archivo .g4 con las expresiones regulares y reglas sintácticas que contemple las siguientes instrucciones:
+// declaracion -> int x;
+//                double y;
+//                int z = 0;
+//                double w, q, t;
+//                int a = 5, b, c = 10;
+
+// asignacion -> x = 1;
+//               z = y;
+
+// iwhile -> while (x comp y) { instrucciones }
+
+//Tokens
+PA : '(';
+PC : ')';
+LA : '{';
+LC : '}';
+PYC : ';';
+IGUAL : '=';
+COMA: ',';
+OP_COMP : '<' | '>' | '<=' | '>=' | '==' | '!=';
+OP_ARIT : '+' | '-' | '*' | '/';
+
+//Reserved words
+INT : 'int';
+DOUBLE : 'double';
+WHILE: 'while';
+
+NUMERO : DIGITO+ ;
+ID : (LETRA | '_')(LETRA | DIGITO | '_')* ;
+
+
 programa : instrucciones EOF;
 
-instrucciones : instruccion instrucciones
-               |
-               ;
+instrucciones : instruccion PYC instrucciones 
+              | 
+              ;
 
-instruccion : LA instrucciones LC
-            | declaracion
-            | assignacion
+instruccion : declaracion 
+            | asignacion 
+            | iwhile
             ;
 
-declaracion : INT ID PYC;
-assignacion : ID IGUAL NUMERO PYC;
+declaracion : tipo variableDeclarada (COMA variableDeclarada)*;
+
+asignacion : ID IGUAL expresion;
+
+iwhile : WHILE PA expresion PC LA instrucciones LC;
+
+tipo : INT | DOUBLE;
+
+variableDeclarada : ID (IGUAL NUMERO)?;
+
+expresion : termino (OP_ARIT termino)*;
+
+termino : factor (OP_COMP factor)?;
+
+factor : ID | NUMERO;
