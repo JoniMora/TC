@@ -1,25 +1,25 @@
-grammar compiladores; ///-> Analizador lexico y gramatical
-//lexer -> Analisis lexico
+// grammar compiladores; ///-> Analizador lexico y gramatical
+// //lexer -> Analisis lexico
 
-// lexico recursivo
+// // lexico recursivo
 
-//-> Directiva para hacer algo en la cabezera de los archivos generados - Comentar para depurar y descomentar para correr el codigo
-@header { 
-package compiladores;
-}
+// //-> Directiva para hacer algo en la cabezera de los archivos generados - Comentar para depurar y descomentar para correr el codigo
+// @header { 
+// package compiladores;
+// }
 
-fragment LETRA : [A-Za-z]; //-> fragment es solo para uso interno (No produce token)
-fragment DIGITO : [0-9];
+// fragment LETRA : [A-Za-z]; //-> fragment es solo para uso interno (No produce token)
+// fragment DIGITO : [0-9];
 
-//OPERATOR : [-+*/%];
-//ERROR1 : ["HOLA""CHAU"]; No usar!!
-//ERROR2 : [17-34]; Mal --> "1"[789] | "2"[0-9] | "3"[0-4];
-//COMPLEMENTO : ~[AEIOU]; -> Todo menos esto
+// //OPERATOR : [-+*/%];
+// //ERROR1 : ["HOLA""CHAU"]; No usar!!
+// //ERROR2 : [17-34]; Mal --> "1"[789] | "2"[0-9] | "3"[0-4];
+// //COMPLEMENTO : ~[AEIOU]; -> Todo menos esto
 
-// OTRO : . ;
+// // OTRO : . ;
 
-//Regla para los espacios en blanco
-WS : [ \n\t\r] -> skip;
+// //Regla para los espacios en blanco
+// WS : [ \n\t\r] -> skip;
 
 // PA : '(';
 // PC : ')';
@@ -162,6 +162,18 @@ WS : [ \n\t\r] -> skip;
 
 
 
+grammar compiladores; 
+
+
+@header { 
+      package compiladores;
+}
+
+fragment LETRA : [A-Za-z]; 
+fragment DIGITO : [0-9];
+
+WS : [ \n\t\r] -> skip;
+
 PA : '(';
 PC : ')';
 LA : '{';
@@ -222,3 +234,5 @@ factor: NUMERO
 f: MULT factor f
  | DIV factor f
  | MOD factor f
+ |
+ ;
