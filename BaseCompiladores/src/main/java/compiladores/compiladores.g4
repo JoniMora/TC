@@ -112,18 +112,71 @@ WS : [ \n\t\r] -> skip;
 
 // iwhile -> while (x comp y) { instrucciones }
 
-//Tokens
+// //Tokens
+// PA : '(';
+// PC : ')';
+// LA : '{';
+// LC : '}';
+// PYC : ';';
+// IGUAL : '=';
+// COMA: ',';
+// OP_COMP : '<' | '>' | '<=' | '>=' | '==' | '!=';
+// OP_ARIT : '+' | '-' | '*' | '/';
+
+
+// //Reserved words
+// INT : 'int';
+// DOUBLE : 'double';
+// WHILE: 'while';
+
+// NUMERO : DIGITO+ ;
+// ID : (LETRA | '_')(LETRA | DIGITO | '_')* ;
+
+
+// programa : instrucciones EOF;
+
+// instrucciones : instruccion PYC instrucciones 
+//               | 
+//               ;
+
+// instruccion : declaracion 
+//             | asignacion 
+//             | iwhile
+//             ;
+
+// declaracion : tipo variableDeclarada (COMA variableDeclarada)*;
+
+// asignacion : ID IGUAL expresion;
+
+// iwhile : WHILE PA expresion PC LA instrucciones LC;
+
+// tipo : INT | DOUBLE;
+
+// variableDeclarada : ID (IGUAL NUMERO)?;
+
+// expresion : termino (OP_ARIT termino)*;
+
+// termino : factor (OP_COMP factor)?;
+
+// factor : ID | NUMERO;
+
+
+
 PA : '(';
 PC : ')';
 LA : '{';
 LC : '}';
 PYC : ';';
 IGUAL : '=';
+SUMA: '+';
+RESTA: '-';
+MULT: '*';
+DIV: '/';
+MOD: '%';
 COMA: ',';
 OP_COMP : '<' | '>' | '<=' | '>=' | '==' | '!=';
 OP_ARIT : '+' | '-' | '*' | '/';
 
-//Reserved words
 INT : 'int';
 DOUBLE : 'double';
 WHILE: 'while';
@@ -131,30 +184,41 @@ WHILE: 'while';
 NUMERO : DIGITO+ ;
 ID : (LETRA | '_')(LETRA | DIGITO | '_')* ;
 
-
 programa : instrucciones EOF;
 
-instrucciones : instruccion PYC instrucciones 
+instrucciones : instruccion instrucciones 
               | 
               ;
 
-instruccion : declaracion 
-            | asignacion 
-            | iwhile
+instruccion : LA instrucciones LC
+            | declaracion 
+            | asignacion
             ;
 
-declaracion : tipo variableDeclarada (COMA variableDeclarada)*;
+declaracion : INT ID PYC;
 
-asignacion : ID IGUAL expresion;
+asignacion: ID IGUAL exp PYC;
 
-iwhile : WHILE PA expresion PC LA instrucciones LC;
+expresiones: exp PYC expresiones 
+           | EOF
+           ;
 
-tipo : INT | DOUBLE;
+exp: e;
 
-variableDeclarada : ID (IGUAL NUMERO)?;
+e: term t;
 
-expresion : termino (OP_ARIT termino)*;
+term: factor f;
 
-termino : factor (OP_COMP factor)?;
+t: SUMA term t
+ | RESTA term t
+ |
+ ;
 
-factor : ID | NUMERO;
+factor: NUMERO
+      | ID
+      | PA exp PC
+      ;
+
+f: MULT factor f
+ | DIV factor f
+ | MOD factor f

@@ -15,14 +15,14 @@
             // "input": "input/parentesis.txt", //DEPURAR ANTLR
             // "input": "input/balanceLlaves.txt", //BALANCE LLAVES
             // "input": "input/fechas-hora.txt",  //EXPRESION SIMPLE
-            "input": "input/while.txt",  // REGLA SIMPLE
-            // "input": "input/programa.txt",  //
+            // "input": "input/while.txt",  // REGLA SIMPLE
+             "input": "input/programa.txt",  // ESCUCHA
             // Simbolo inicial
             //"startRule": "si",
             // "startRule": "s",
             // "startRule": "start", // EXPRESION SIMPLE
-            "startRule": "programa", // WHILE
-            //"startRule": "programa", //
+            // "startRule": "programa", // WHILE
+            "startRule": "programa", //
             // Muestra Arbol Sintactico
             "printParseTree": true,
             "visualParseTree": true
