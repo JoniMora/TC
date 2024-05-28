@@ -282,6 +282,8 @@ INT : 'int';
 DOUBLE : 'double';
 
 WHILE : 'while';
+IF : 'if' ;
+ELSE: 'else';
 
 ID : (LETRA | '_')(LETRA | DIGITO | '_')* ;
 
@@ -295,12 +297,15 @@ instrucciones : instruccion instrucciones
 instruccion : asignacion
             | declaracion
             | bloque
+            | if_else
             | iwhile
             ;
 
 bloque : LA instrucciones LC;
+
 asignacion : ID IGUAL expresion PYC;
 declaracion : INT ID inicializacion listaid PYC;
+
 inicializacion : IGUAL NUMERO
               |
               ;
@@ -310,6 +315,7 @@ listaid : COMA ID inicializacion listaid
         ;
 
 expresion : termino exp;
+
 exp : SUMA termino exp
     | RESTA termino exp
     | comp
@@ -317,6 +323,7 @@ exp : SUMA termino exp
     ;
 
 termino : factor term;
+
 term : MULT factor term
      | DIV factor term
      | MOD factor term
@@ -333,11 +340,16 @@ comp : MENOR
      | MAYOR
      | MENORIGUAL
      | MAYORIGUAL
-     | IGUAL
+     | IGUAL2
      | DISTINTO
      ;
 
 iwhile : WHILE PA expresion_D PC bloque;
+
 expresion_D : expresion comp expresion
             | PYC
             ;
+
+if_else : IF PA expresion_D PC bloque 
+             | ELSE bloque
+             ;
