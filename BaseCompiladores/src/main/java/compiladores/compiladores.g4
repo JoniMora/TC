@@ -164,6 +164,84 @@
 
 //------------- Clases Profe ------------------//
 
+// grammar compiladores; 
+
+
+// @header { 
+//       package compiladores;
+// }
+
+// fragment LETRA : [A-Za-z]; 
+// fragment DIGITO : [0-9];
+
+// WS : [ \n\t\r] -> skip;
+
+// PA : '(';
+// PC : ')';
+// LA : '{';
+// LC : '}';
+// PYC : ';';
+// IGUAL : '=';
+// SUMA: '+';
+// RESTA: '-';
+// MULT: '*';
+// DIV: '/';
+// MOD: '%';
+// COMA: ',';
+// OP_COMP : '<' | '>' | '<=' | '>=' | '==' | '!=';
+// OP_ARIT : '+' | '-' | '*' | '/';
+
+// INT : 'int';
+// DOUBLE : 'double';
+// WHILE: 'while';
+
+// NUMERO : DIGITO+ ;
+// ID : (LETRA | '_')(LETRA | DIGITO | '_')* ;
+
+// programa : instrucciones EOF;
+
+// instrucciones : instruccion instrucciones 
+//               | 
+//               ;
+
+// instruccion : LA instrucciones LC
+//             | declaracion 
+//             | asignacion
+//             ;
+
+// declaracion : INT ID PYC;
+
+// asignacion: ID IGUAL exp PYC;
+
+// expresiones: exp PYC expresiones 
+//            | EOF
+//            ;
+
+// exp: e;
+
+// e: term t;
+
+// term: factor f;
+
+// t: SUMA term t
+//  | RESTA term t
+//  |
+//  ;
+
+// factor: NUMERO
+//       | ID
+//       | PA exp PC
+//       ;
+
+// f: MULT factor f
+//  | DIV factor f
+//  | MOD factor f
+//  |
+//  ;
+
+
+//------------- TP1 (Analisis Lexico y Sintactico) - Jonathan Mora ------------------//
+
 grammar compiladores; 
 
 
@@ -174,12 +252,12 @@ grammar compiladores;
 fragment LETRA : [A-Za-z]; 
 fragment DIGITO : [0-9];
 
-WS : [ \n\t\r] -> skip;
-
 PA : '(';
 PC : ')';
 LA : '{';
 LC : '}';
+CA : '[';
+CC : ']';
 PYC : ';';
 IGUAL : '=';
 SUMA: '+';
@@ -187,54 +265,79 @@ RESTA: '-';
 MULT: '*';
 DIV: '/';
 MOD: '%';
-COMA: ',';
-OP_COMP : '<' | '>' | '<=' | '>=' | '==' | '!=';
-OP_ARIT : '+' | '-' | '*' | '/';
+COMA : ',';
+
+MENOR : '<';
+MAYOR : '>';
+MENORIGUAL : '<=';
+MAYORIGUAL : '>=';
+IGUAL2 : '==';
+DISTINTO : '!=';
+
+NUMERO : DIGITO+ ;
+
+NUMERO_DOUBLE : DIGITO+ '.' DIGITO+;
 
 INT : 'int';
 DOUBLE : 'double';
-WHILE: 'while';
 
-NUMERO : DIGITO+ ;
+WHILE : 'while';
+
 ID : (LETRA | '_')(LETRA | DIGITO | '_')* ;
 
+WS : [ \n\t\r] -> skip;
+
 programa : instrucciones EOF;
+instrucciones : instruccion instrucciones
+             |
+             ;
 
-instrucciones : instruccion instrucciones 
-              | 
-              ;
-
-instruccion : LA instrucciones LC
-            | declaracion 
-            | asignacion
+instruccion : asignacion
+            | declaracion
+            | bloque
+            | iwhile
             ;
 
-declaracion : INT ID PYC;
+bloque : LA instrucciones LC;
+asignacion : ID IGUAL expresion PYC;
+declaracion : INT ID inicializacion listaid PYC;
+inicializacion : IGUAL NUMERO
+              |
+              ;
 
-asignacion: ID IGUAL exp PYC;
+listaid : COMA ID inicializacion listaid
+        |
+        ;
 
-expresiones: exp PYC expresiones 
-           | EOF
-           ;
+expresion : termino exp;
+exp : SUMA termino exp
+    | RESTA termino exp
+    | comp
+    |
+    ;
 
-exp: e;
+termino : factor term;
+term : MULT factor term
+     | DIV factor term
+     | MOD factor term
+     |
+     ;
 
-e: term t;
+factor : NUMERO
+       | ID
+       | PA expresion PC
+       |
+       ;
 
-term: factor f;
+comp : MENOR
+     | MAYOR
+     | MENORIGUAL
+     | MAYORIGUAL
+     | IGUAL
+     | DISTINTO
+     ;
 
-t: SUMA term t
- | RESTA term t
- |
- ;
-
-factor: NUMERO
-      | ID
-      | PA exp PC
-      ;
-
-f: MULT factor f
- | DIV factor f
- | MOD factor f
- |
- ;
+iwhile : WHILE PA expresion_D PC bloque;
+expresion_D : expresion comp expresion
+            | PYC
+            ;
