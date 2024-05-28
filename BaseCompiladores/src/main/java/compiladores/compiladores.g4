@@ -280,6 +280,8 @@ NUMERO_DOUBLE : DIGITO+ '.' DIGITO+;
 
 INT : 'int';
 DOUBLE : 'double';
+CHAR : 'char';
+VOID : 'void';
 
 WHILE : 'while';
 IF : 'if' ;
@@ -291,9 +293,10 @@ ID : (LETRA | '_')(LETRA | DIGITO | '_')* ;
 WS : [ \n\t\r] -> skip;
 
 programa : instrucciones EOF;
+
 instrucciones : instruccion instrucciones
-             |
-             ;
+              |
+              ;
 
 instruccion : asignacion
             | declaracion
@@ -301,6 +304,8 @@ instruccion : asignacion
             | if_else
             | iwhile
             | for_loop
+            | funcionDeclaracion
+            | funcionCall
             ;
 
 bloque : LA instrucciones LC;
@@ -310,8 +315,8 @@ asignacion : ID IGUAL expresion PYC;
 declaracion : INT ID inicializacion listaid PYC;
 
 inicializacion : IGUAL NUMERO
-              |
-              ;
+               |
+               ;
 
 listaid : COMA ID inicializacion listaid
         |
@@ -354,7 +359,27 @@ expresion_D : expresion comp expresion
             ;
 
 if_else : IF PA expresion_D PC bloque 
-             | ELSE bloque
-             ;
+        | ELSE bloque
+        ;
 
 for_loop : FOR PA asignacion PYC expresion_D PYC expresion PC (bloque | instruccion);
+
+tipo : INT
+     | DOUBLE
+     | CHAR
+     | VOID
+     ;
+
+funcionDeclaracion : tipo ID PA parametros PC bloque;
+
+parametros : parametro (COMA parametro)*
+           |
+           ;
+
+parametro : tipo ID;
+
+funcionCall : ID PA argumentos PC PYC;
+
+argumentos : expresion (COMA expresion)*
+           |
+           ;
