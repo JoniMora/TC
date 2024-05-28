@@ -284,6 +284,7 @@ DOUBLE : 'double';
 WHILE : 'while';
 IF : 'if' ;
 ELSE: 'else';
+FOR : 'for';
 
 ID : (LETRA | '_')(LETRA | DIGITO | '_')* ;
 
@@ -299,11 +300,13 @@ instruccion : asignacion
             | bloque
             | if_else
             | iwhile
+            | for_loop
             ;
 
 bloque : LA instrucciones LC;
 
 asignacion : ID IGUAL expresion PYC;
+
 declaracion : INT ID inicializacion listaid PYC;
 
 inicializacion : IGUAL NUMERO
@@ -353,3 +356,5 @@ expresion_D : expresion comp expresion
 if_else : IF PA expresion_D PC bloque 
              | ELSE bloque
              ;
+
+for_loop : FOR PA asignacion PYC expresion_D PYC expresion PC (bloque | instruccion);
