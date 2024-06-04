@@ -33,14 +33,14 @@ public class App {
         // En este caso la regla es el simbolo inicial
         // parser.s();
         // ParseTree tree =  parser.s();
-         ParseTree tree =  parser.expresiones();
+         ParseTree tree =  parser.expresion();
         // Conectamos el visitor
-        // Caminante visitor = new Caminante();
-        // visitor.visit(tree);
+        Caminante visitor = new Caminante();
+        visitor.visit(tree);
         // System.out.println(visitor);
         // System.out.println(visitor.getErrorNodes());
         // Imprime el arbol obtenido
-         System.out.println(escucha);
+        System.out.println(escucha);
         // System.out.println(tree.toStringTree(parser));
         // System.out.println(escucha);
         
