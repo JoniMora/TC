@@ -33,7 +33,7 @@ public class App {
         // En este caso la regla es el simbolo inicial
         // parser.s();
         // ParseTree tree =  parser.s();
-        ParseTree tree =  parser.expresion();
+        ParseTree tree =  parser.programa();
         // Conectamos el visitor
         Caminante visitor = new Caminante();
         visitor.visit(tree);
