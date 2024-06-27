@@ -1,3 +1,151 @@
+//------------- TP1 (Analisis Lexico y Sintactico) - Jonathan Mora ------------------//
+
+grammar compiladores; 
+
+
+@header { 
+      package compiladores;
+}
+
+fragment LETRA : [A-Za-z]; 
+fragment DIGITO : [0-9];
+
+PA : '(';
+PC : ')';
+LA : '{';
+LC : '}';
+CA : '[';
+CC : ']';
+PYC : ';';
+IGUAL : '=';
+SUMA: '+';
+RESTA: '-';
+MULT: '*';
+DIV: '/';
+MOD: '%';
+COMA : ',';
+
+MENOR : '<';
+MAYOR : '>';
+MENORIGUAL : '<=';
+MAYORIGUAL : '>=';
+IGUAL2 : '==';
+DISTINTO : '!=';
+
+NUMERO : DIGITO+ ;
+
+NUMERO_DOUBLE : DIGITO+ '.' DIGITO+;
+
+INT : 'int';
+DOUBLE : 'double';
+CHAR : 'char';
+VOID : 'void';
+
+WHILE : 'while';
+IF : 'if' ;
+ELSE: 'else';
+FOR : 'for';
+
+ID : (LETRA | '_')(LETRA | DIGITO | '_')* ;
+
+WS : [ \n\t\r] -> skip;
+
+programa : instrucciones EOF;
+
+instrucciones : instruccion instrucciones
+              |
+              ;
+
+instruccion : asignacion
+            | declaracion
+            | bloque
+            | if_else
+            | iwhile
+            | for_loop
+            | funcionDeclaracion
+            | funcionCall
+            ;
+
+bloque : LA instrucciones LC;
+
+asignacion : ID IGUAL expresion PYC;
+
+declaracion : tipo ID inicializacion listaid PYC;
+
+inicializacion : IGUAL NUMERO
+               |
+               ;
+
+listaid : COMA ID inicializacion listaid
+        |
+        ;
+
+expresion : termino exp;
+
+exp : SUMA termino exp
+    | RESTA termino exp
+    | comp
+    |
+    ;
+
+termino : factor term;
+
+term : MULT factor term
+     | DIV factor term
+     | MOD factor term
+     |
+     ;
+
+factor : NUMERO
+       | ID
+       | PA expresion PC
+       |
+       ;
+
+comp : MENOR
+     | MAYOR
+     | MENORIGUAL
+     | MAYORIGUAL
+     | IGUAL2
+     | DISTINTO
+     ;
+
+iwhile : WHILE PA expresion_D PC bloque;
+
+expresion_D : expresion comp expresion
+            | PYC
+            ;
+
+if_else : IF PA expresion_D PC bloque 
+        | ELSE bloque
+        ;
+
+for_loop : FOR PA asignacion PYC expresion_D PYC expresion PC (bloque | instruccion);
+
+tipo : INT
+     | DOUBLE
+     | CHAR
+     | VOID
+     ;
+
+funcionDeclaracion : tipo ID PA parametros PC bloque;
+
+parametros : parametro (COMA parametro)*
+           |
+           ;
+
+parametro : tipo ID;
+
+funcionCall : ID PA argumentos PC PYC;
+
+argumentos : expresion (COMA expresion)*
+           |
+           ;
+
+
+
+
+//------------- Notas Clases ------------------//
 // grammar compiladores; ///-> Analizador lexico y gramatical
 // //lexer -> Analisis lexico
 
@@ -239,147 +387,3 @@
 //  |
 //  ;
 
-
-//------------- TP1 (Analisis Lexico y Sintactico) - Jonathan Mora ------------------//
-
-grammar compiladores; 
-
-
-@header { 
-      package compiladores;
-}
-
-fragment LETRA : [A-Za-z]; 
-fragment DIGITO : [0-9];
-
-PA : '(';
-PC : ')';
-LA : '{';
-LC : '}';
-CA : '[';
-CC : ']';
-PYC : ';';
-IGUAL : '=';
-SUMA: '+';
-RESTA: '-';
-MULT: '*';
-DIV: '/';
-MOD: '%';
-COMA : ',';
-
-MENOR : '<';
-MAYOR : '>';
-MENORIGUAL : '<=';
-MAYORIGUAL : '>=';
-IGUAL2 : '==';
-DISTINTO : '!=';
-
-NUMERO : DIGITO+ ;
-
-NUMERO_DOUBLE : DIGITO+ '.' DIGITO+;
-
-INT : 'int';
-DOUBLE : 'double';
-CHAR : 'char';
-VOID : 'void';
-
-WHILE : 'while';
-IF : 'if' ;
-ELSE: 'else';
-FOR : 'for';
-
-ID : (LETRA | '_')(LETRA | DIGITO | '_')* ;
-
-WS : [ \n\t\r] -> skip;
-
-programa : instrucciones EOF;
-
-instrucciones : instruccion instrucciones
-              |
-              ;
-
-instruccion : asignacion
-            | declaracion
-            | bloque
-            | if_else
-            | iwhile
-            | for_loop
-            | funcionDeclaracion
-            | funcionCall
-            ;
-
-bloque : LA instrucciones LC;
-
-asignacion : ID IGUAL expresion PYC;
-
-declaracion : INT ID inicializacion listaid PYC;
-
-inicializacion : IGUAL NUMERO
-               |
-               ;
-
-listaid : COMA ID inicializacion listaid
-        |
-        ;
-
-expresion : termino exp;
-
-exp : SUMA termino exp
-    | RESTA termino exp
-    | comp
-    |
-    ;
-
-termino : factor term;
-
-term : MULT factor term
-     | DIV factor term
-     | MOD factor term
-     |
-     ;
-
-factor : NUMERO
-       | ID
-       | PA expresion PC
-       |
-       ;
-
-comp : MENOR
-     | MAYOR
-     | MENORIGUAL
-     | MAYORIGUAL
-     | IGUAL2
-     | DISTINTO
-     ;
-
-iwhile : WHILE PA expresion_D PC bloque;
-
-expresion_D : expresion comp expresion
-            | PYC
-            ;
-
-if_else : IF PA expresion_D PC bloque 
-        | ELSE bloque
-        ;
-
-for_loop : FOR PA asignacion PYC expresion_D PYC expresion PC (bloque | instruccion);
-
-tipo : INT
-     | DOUBLE
-     | CHAR
-     | VOID
-     ;
-
-funcionDeclaracion : tipo ID PA parametros PC bloque;
-
-parametros : parametro (COMA parametro)*
-           |
-           ;
-
-parametro : tipo ID;
-
-funcionCall : ID PA argumentos PC PYC;
-
-argumentos : expresion (COMA expresion)*
-           |
-           ;
