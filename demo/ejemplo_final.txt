@@ -1,0 +1,36 @@
+int funcionNoUsada(int parametroNoUsado) {
+    int variableLocalNoUsada;
+    return parametroNoUsado * 2;
+}
+
+int main() {
+    int varNoInicializada;
+    int varSinUso;
+    double valorDecimal = 123.45;
+    int valorEntero;
+
+    varNoInicializada = varNoInicializada + 1;
+
+    valorEntero = valorDecimal;
+
+    if (true) {
+        int dentroIfVerdadero = 1;
+    }
+
+    if (false) {
+        int dentroIfFalso = 0;
+    } else {
+        int dentroElse = 1;
+    }
+
+    while(true) {
+        int bucleInfinitoVar = 0;
+        break;
+    }
+
+    while(false) {
+        int bucleNuncaEjecutadoVar = 1;
+    }
+
+    return 0;
+}

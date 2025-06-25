@@ -1,0 +1,36 @@
+// Codigo de tres direcciones generado automaticamente
+// Archivo: ejemplo_final_codigo_intermedio_original.txt
+// Total de instrucciones: 32
+
+  0: func_funcionNoUsada:
+  1: t0 = parametroNoUsado * 2
+  2: return t0
+  3: end_func_funcionNoUsada
+  4: func_main:
+  5: valorDecimal = 123.45
+  6: t1 = varNoInicializada + 1
+  7: varNoInicializada = t1
+  8: valorEntero = valorDecimal
+  9: if !true goto L0
+ 10: dentroIfVerdadero = 1
+ 11: L0:
+ 12: L1:
+ 13: if !false goto L2
+ 14: dentroIfFalso = 0
+ 15: goto L3
+ 16: L2:
+ 17: dentroElse = 1
+ 18: L3:
+ 19: L4:
+ 20: if !true goto L5
+ 21: bucleInfinitoVar = 0
+ 22: goto L5
+ 23: goto L4
+ 24: L5:
+ 25: L6:
+ 26: if !false goto L7
+ 27: bucleNuncaEjecutadoVar = 1
+ 28: goto L6
+ 29: L7:
+ 30: return 0
+ 31: end_func_main

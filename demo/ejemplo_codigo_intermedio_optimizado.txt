@@ -1,0 +1,19 @@
+// Codigo de tres direcciones generado automaticamente
+// Archivo: ejemplo_codigo_intermedio_optimizado.txt
+// Total de instrucciones: 15
+
+  0: func_cuadrado:
+  1: return t0
+  2: end_func_cuadrado
+  3: func_main:
+  4: c = 2
+  5: d = 3
+  6: a = 5
+  7: b = 25
+  8: if !true goto L0
+  9: b = 23
+ 10: goto L1
+ 11: L0:
+ 12: b = 25
+ 13: L1:
+ 14: end_func_main

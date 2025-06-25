@@ -1,0 +1,42 @@
+// Advertencia 1: Variable declarada pero no utilizada
+int contador;
+
+int sumar(int a, int b) {
+    // Advertencia 2: Parámetro 'b' no utilizado
+    return a + 0;
+}
+
+int main() {
+    // Error 1: Uso de variable no inicializada
+    int x;
+    System.out.println("Valor de x: %d\n", x);
+
+    // Error 2: Llamada a función no declarada
+    int resultado = procesar(x);
+
+    // Error 3: Tipos incompatibles en asignación
+    int numero = "123";
+
+    // Error 4: Redefinición de variable en el mismo ámbito
+    int valor = 10;
+    int valor = 20;
+
+    // Advertencia 3: Expresión sin efecto
+    valor;
+
+    // Error 5: Asignación de resultado de función 'void'
+    void imprimir();
+    int y = imprimir(); // Error: no se puede asignar el resultado de una función void
+
+    // Advertencia 4: Función declarada pero no definida
+    void funcionIncompleta(); // nunca se define
+
+    // Advertencia 5: Operación innecesaria
+    int z = 5 * 1;
+
+    while(true) {
+        System.out.println("Bucle infinito\n");
+    }
+
+    return 0;
+}
