@@ -1,0 +1,23 @@
+// Codigo de tres direcciones generado automaticamente
+// Archivo: ejemplo_codigo_intermedio_original.txt
+// Total de instrucciones: 19
+
+  0: func_cuadrado:
+  1: t0 = x * x
+  2: return t0
+  3: end_func_cuadrado
+  4: func_main:
+  5: c = 2
+  6: d = 3
+  7: a = 5
+  8: b = 25
+  9: t1 = b > 10
+ 10: if !t1 goto L0
+ 11: t2 = b - 2
+ 12: b = t2
+ 13: goto L1
+ 14: L0:
+ 15: t3 = b + 2
+ 16: b = t3
+ 17: L1:
+ 18: end_func_main

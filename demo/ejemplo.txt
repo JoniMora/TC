@@ -1,0 +1,31 @@
+int cuadrado(int x) {
+    return x * x;
+}
+
+void main() {
+    int a;
+    int b;
+    int c = 2;
+    int d;
+    d = d;
+    d = d + 0;
+    d = d + 1;
+    a = 5;
+    b = 25;
+
+    if (b > 10) {
+        b = b - 2;
+    } else {
+        b = b + 2;
+    }
+
+    int sum_of_i_cubed = 0;
+    int i = 0;
+    for (i; i < 5; i = i + 1) {
+        sum_of_i_cubed = sum_of_i_cubed + (i * i * i);
+    }
+
+    while(true) {
+        int i = 1;
+    }
+}
